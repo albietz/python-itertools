@@ -3,8 +3,11 @@ title: "Combinatoric Generators"
 teaching: 5
 exercises: 0
 questions:
+- How can we easily create combinations and permutations of data?
 objectives:
+- Learn about the main ways of creating combinations and permutations with `itertools`.
 keypoints:
+- The combinatoric generators provide an efficient way of iterating over combinations and permutations of data.
 ---
 The `itertools` library contains four iterators that can be used for creating combinations and permutations of data. 
 We will be covering these fun iterators in this section.
@@ -12,7 +15,7 @@ We will be covering these fun iterators in this section.
 ### `combinations(iterable, r)`
 
 If you have the need to create combinations, Python has you covered with `itertools.combinations`. What `combinations` allows 
-you to do is create an iterator from an iterable that is some length long. Let’s take a look:
+you to do is create an iterator that generates combinations of length 'r' from an iterable. Let’s take a look:
 
 ~~~
 from itertools import combinations
@@ -29,6 +32,7 @@ When you run this, you will notice that `combinations` returns tuples. To make t
 loop over our iterator and join the tuples into a single string:
 
 ~~~
+from itertools import combinations
 for item in combinations('WXYZ', 2):
     print(''.join(item))
 ~~~
@@ -52,7 +56,7 @@ if all the input elements are unique.
 ### `combinations_with_replacement(iterable, r)`
 
 The `combinations_with_replacement` with iterator is very similar to `combinations`. The only difference is that it 
-will actually create combinations where elements do repeat. Let’s try an example from the previous section to illustrate:
+will create combinations where elements *do* repeat. Let’s try an example from the previous section to illustrate:
 
 ~~~
 from itertools import combinations_with_replacement

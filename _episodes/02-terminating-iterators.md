@@ -375,7 +375,7 @@ function as its first argument and a list of tuples for the iterable. The `starm
 element into the function and return an iterator of the results, which we print out.
 
 > ## Challenge
-> How can you make a simple change the above example to make it more efficient?
+> How can you make a simple change to the above example to make it more efficient?
 {: .challenge}
 
 ### `itertools.takewhile(predicate, iterable)`
