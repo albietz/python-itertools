@@ -180,19 +180,19 @@ from itertools import dropwhile
 def less_than_five(x):
      return x < 5 
 
-print(list(dropwhile(less_than_five, [1, 4, 6, 4, 1])))
+print(list(dropwhile(less_than_five, [6, 5, 1, 4, 1])))
 ~~~
 {: .python}
 
 ~~~
-[6, 4, 1]
+[6, 5, 1, 4, 1]
 ~~~
 {: .output}
 
 Here we import `dropwhile` and then we pass it a simple function. This function will return `True` if 
-`x` is less than 5. Other it will return `False`. The `dropwhile` function will loop over the list and pass each 
-element into `less_than_five`. If the lambda returns `True`, then that value gets dropped. Once we reach the number 6, 
-the lambda returns `False` and we retain the number 6 and all the values that follow it.
+`x` is less than 5, otherwise it will return `False`. The `dropwhile` function will loop over the list and pass each 
+element into `less_than_five`. If the function returns `True`, then that value gets dropped. Once we reach the number 1, 
+the function returns `False` and we retain the number 1 and all the values that follow it.
 
 Rather than using a function this way, it would be easier to use a lambda function. So let’s flip
 this on its head and use a lambda function that returns `True` if the number is greater than 5.
@@ -215,14 +215,14 @@ then ALL the values after and including that value will be kept.
 ### `itertools.filterfalse(predicate, iterable)`
 
 The `filterfalse` function is very similar to `dropwhile`. However instead of dropping 
-values that match `True`, `filterfalse` will only return those values that evaluated to `False`. 
+values that match `True`, `filterfalse` will only return those values that evaluate to `False`. 
 Let’s use our function from the previous section to illustrate:
 
 ~~~
 from itertools import filterfalse
 def less_than_five(x):
      return x < 5  
-     
+
 print(list(filterfalse(less_than_five, [6, 7, 8, 9, 1, 2, 3, 10])))
 ~~~
 {: .python}
@@ -232,7 +232,7 @@ print(list(filterfalse(less_than_five, [6, 7, 8, 9, 1, 2, 3, 10])))
 ~~~
 {: .output}
 
-Here we pass `filterfalse` our function and a list of integers. If the integer is greater than 5, it is kept. 
+Here we pass `filterfalse` our function and a list of integers. If the integer is less than 5, it is kept. 
 Otherwise it is thrown away. You will notice that our result is only 6, 7, 8, 9, and 10. Unlike `dropwhile`, 
 `filterfalse` will check each and every value against our predicate.
 
@@ -350,7 +350,7 @@ slice except that you are doing it to an iterator and returning a new iterator!
 ### `itertools.starmap(function, iterable)`
 
 The `starmap` tool will create an iterator that can compute using the function and iterable provided. As the documentation 
-mentions, “the difference between map() and starmap() parallels the distinction between function(a,b) and function(*c).”
+mentions, “the difference between `map()` and `starmap()` parallels the distinction between `function(a,b)` and `function(*c)`.”
 
 Let’s look at a simple example:
 
@@ -374,9 +374,13 @@ Here we create a simple adding function that accepts two arguments. Next we crea
 function as its first argument and a list of tuples for the iterable. The `starmap` function will then pass each tuple 
 element into the function and return an iterator of the results, which we print out.
 
+> ## Challenge
+> How can you make a simple change the above example to make it more efficient?
+{: .challenge}
+
 ### `itertools.takewhile(predicate, iterable)`
 
-The `takewhile` module is basically the opposite of the `dropwhile` iterator that we looked at earlier. `takewhile` will 
+The `takewhile` method is basically the opposite of the `dropwhile` iterator that we looked at earlier. `takewhile` will 
 create an iterator that returns elements from the iterable only as long as our predicate or filter is `True`. 
 Let’s try a simple example to see how it works:
 
@@ -446,7 +450,7 @@ for this function:
 ~~~
 from itertools import zip_longest
 for item in zip_longest('ABCD', 'xy', fillvalue='BLANK'):
-...     print (item)
+    print (item)
 ~~~
 {: .python}
 
