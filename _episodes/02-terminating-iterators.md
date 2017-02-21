@@ -21,7 +21,7 @@ you can pass to `accumulate`. The default of `accumulate` is addition, so let’
 
 ~~~
 from itertools import accumulate
-list(accumulate(range(10)))
+print(list(accumulate(range(10))))
 ~~~
 {: .python}
 
@@ -30,12 +30,12 @@ list(accumulate(range(10)))
 ~~~
 {: .output}
 
-Here we import `accumulate` and pass it a range of 10 numbers, 0-9. It adds each of them in turn, so the first is 0, 
-the second is 0 + 1, the 3rd is 1 + 2, etc. Now let’s import the operator module and add it into the mix:
+Here we import `accumulate` and pass it a range of 10 numbers, 0 through 9. It adds each of them in turn, so the first is 0, 
+the second is 0 + 1, the third is 1 + 2, etc. Now let’s import the operator module and add it into the mix:
 
 ~~~
 import operator
-list(accumulate(range(1, 5), operator.mul))
+print(list(accumulate(range(1, 5), operator.mul)))
 ~~~
 {: .python}
 
@@ -44,15 +44,16 @@ list(accumulate(range(1, 5), operator.mul))
 ~~~
 {: .output}
 
-Here we pass the number 1-4 to our accumulate iterator. We also pass it a function: operator.mul. This functions 
+Here we pass the range 1 through 4 to our `accumulate` iterator. We also pass it a function `operator.mul`. This function
 accepts to arguments to be multiplied. So for each iteration, it multiplies instead of adds (1 × 1 = 1, 1 × 2 = 2, 2 × 3 = 6, etc).
 
-The documentation for accumulate shows some other interesting examples such as the amortization of a loan or the 
+The [documentation for `accumulate`](https://docs.python.org/3/library/itertools.html#itertools.accumulate)
+shows some other interesting examples such as the amortization of a loan or the 
 chaotic recurrence relation. You should definitely give those examples a look as they are will worth your time.
 
 ### `itertools.chain(*iterables)`
 
-The `chain` iterator will take a series of iterables and basically flatten them down into one long iterable. 
+The `chain` iterator will take a series of `iterables` and basically flatten them down into one long iterable. 
 For example, suppose we have a list with some items already in it and two other lists that we wanted to add to 
 the original list, but we only wanted to add the items in each list. Naively you might try something like this:
 
@@ -60,7 +61,7 @@ the original list, but we only wanted to add the items in each list. Naively you
 my_list = ['foo', 'bar']
 numbers = list(range(5))
 cmd = ['ls', '/some/dir']
-my_list.extend(cmd, numbers)
+my_list.extend([cmd, numbers])
 print(my_list)
 ~~~
 {: .python}
@@ -88,6 +89,7 @@ print(my_list)
 My more astute readers might notice that there’s actually another way we could have accomplished the same thing without using 
 `itertools`. You could do this to get the same effect:
 
+~~~
 my_list = ['foo', 'bar']
 my_list += cmd + numbers
 print(my_list)
