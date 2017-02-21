@@ -15,3 +15,5 @@ other side-effects of large data sets, increasing performance.
 > The examples in this lesson can be run directly using the Python interpreter, using IPython interactively, 
 > or using Jupyter notebooks.
 {: .prereq}
+
+*Thanks to [Mike Driscoll](https://www.blog.pythonlibrary.org/2016/04/20/python-201-an-intro-to-itertools/) for the content*
