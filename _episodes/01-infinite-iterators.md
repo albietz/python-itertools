@@ -3,8 +3,13 @@ title: "Infinite Iterators"
 teaching: 5
 exercises: 0
 questions:
+- What infinite iterators does the `itertools` package provide?
 objectives:
+- Learn how to use the infinite iterators provided by `itertools`.
 keypoints:
+- Infinite iterators can be used to iterate indefinitely.
+- There must be some mechanism to break out of loops that use infinite iterators.
+- Use fo generating or cycling over iterables of unknown length.
 ---
 The `itertools` package comes with three iterators that can iterate infinitely. What this means is that when you use 
 them, you need to understand that you will need to break out of these iterators eventually or you’ll have an infinite loop.

@@ -3,14 +3,18 @@ title: "Iterators that Terminate"
 teaching: 5
 exercises: 0
 questions:
+- What finite iterators does the `itertools` package provide?
 objectives:
+- Learn about a range of finite iterators provided by `itertools`.
 keypoints:
+- Finite iterators generate a finite set of values.
+- There are a variety of methods that provide a wide range of iterators.
 ---
 Most of the iterators that you create with `itertools` are not infinite. In this sections, we will be studying the 
 finite iterators of `itertools`. To get output that is readable, we will be using Python’s built-in `list` type. 
 If you do not use `list`, then you will only get an `itertools` object printed out.
 
-### `accumulate(iterable[, func])`
+### `itertools.accumulate(iterable[, func])`
 
 The `accumulate` iterator will return accumulated sums or the accumulated results of a two argument function that 
 you can pass to `accumulate`. The default of `accumulate` is addition, so let’s give that a quick try:
@@ -46,7 +50,7 @@ accepts to arguments to be multiplied. So for each iteration, it multiplies inst
 The documentation for accumulate shows some other interesting examples such as the amortization of a loan or the 
 chaotic recurrence relation. You should definitely give those examples a look as they are will worth your time.
 
-### `chain(*iterables)`
+### `itertools.chain(*iterables)`
 
 The `chain` iterator will take a series of iterables and basically flatten them down into one long iterable. 
 For example, suppose we have a list with some items already in it and two other lists that we wanted to add to 
@@ -98,7 +102,7 @@ print(my_list)
 Both of these methods are certainly valid but using `chain` is a more elegant and easier to understand solution in this 
 particular case.
 
-### `chain.from_iterable(iterable)`
+### `itertools.chain.from_iterable(iterable)`
 
 You can also use a method of `chain` called `from_iterable`. This method works slightly differently then using `chain` directly. 
 Instead of passing in a series of iterables, you have to pass in a nested list. Let’s take a look:
@@ -138,7 +142,7 @@ list(chain.from_iterable([cmd, numbers]))
 {: .output}
 
 
-### `compress(data, selectors)`
+### `itertools.compress(data, selectors)`
 
 The `compress` sub-module is useful for filtering the first iterable with the second. This works by making the second 
 iterable a list of Booleans (or ones and zeroes which amounts to the same thing). Here’s how it works:
@@ -162,7 +166,7 @@ If the second has a matching `True`, then it will be kept. If it’s a `False`, 
 if you study the example above, you will notice that we have a `True` in the first, third and fourth positions which 
 correspond with A,C and D.
 
-### `dropwhile(predicate, iterable)`
+### `itertools.dropwhile(predicate, iterable)`
 
 There is a neat little iterator contained in `itertools` called `dropwhile`. This fun little iterator will drop elements 
 as long as the filter criteria is `True`. Because of this, you will not see any output from this iterator until the 
@@ -207,7 +211,7 @@ Here we create a simple function in Python’s interpreter. This function is our
 If the values we pass to it are `True`, then they will get dropped. Once we hit a value that is less than 5, 
 then ALL the values after and including that value will be kept, which you can see in the example above.
 
-### `filterfalse(predicate, iterable)`
+### `itertools.filterfalse(predicate, iterable)`
 
 The `filterfalse` function from itertools is very similar to `dropwhile`. However instead of dropping 
 values that match `True`, `filterfalse` will only return those values that evaluated to `False`. 
@@ -230,7 +234,7 @@ Here we pass `filterfalse` our function and a list of integers. If the integer i
 Otherwise it is thrown away. You will notice that our result is only 1, 2 and 3. Unlike `dropwhile`, 
 `filterfalse` will check each and every value against our predicate.
 
-### `groupby(iterable, key=None)`
+### `itertools.groupby(iterable, key=None)`
 
 The `groupby` iterator will return consecutive keys and groups from your iterable. This one is kind of hard to 
 wrap your head around without seeing an example. So let’s take a look at one!
@@ -277,7 +281,7 @@ Taurus is made by Ford
 > learn why you should sort the data before running it through `groupby` if you do.
 {: .challenge}
 
-### `islice(iterable, start, stop[, step])`
+### `itertools.islice(iterable, start, stop[, step])`
 
 We actually mentioned `islice` way back in the `count` section. But here we’ll look at it a little more in 
 depth. `islice` is an iterator that returns selected elements from the iterable. That’s kind of an opaque 
@@ -342,7 +346,7 @@ for i in islice(count(), 3, 15):
 Here we just call `count` and tell it to islice to start at the number 3 and stop when we reach 15. It’s just like doing a 
 slice except that you are doing it to an iterator and returning a new iterator!
 
-### `starmap(function, iterable)`
+### `itertools.starmap(function, iterable)`
 
 The `starmap` tool will create an iterator that can compute using the function and iterable provided. As the documentation 
 mentions, “the difference between map() and starmap() parallels the distinction between function(a,b) and function(*c).”
@@ -369,7 +373,7 @@ Here we create a simple adding function that accepts two arguments. Next we crea
 function as its first argument and a list of tuples for the iterable. The `starmap` function will then pass each tuple 
 element into the function and return an iterator of the results, which we print out.
 
-### `takewhile(predicate, iterable)`
+### `itertools.takewhile(predicate, iterable)`
 
 The `takewhile` module is basically the opposite of the `dropwhile` iterator that we looked at earlier. `takewhile` will 
 create an iterator that returns elements from the iterable only as long as our predicate or filter is `True`. 
@@ -390,7 +394,7 @@ Here we run `takewhile` using a lambda function and a list. The output is only t
 The reason is that 1 and 4 are both less than 5, but 6 is greater. So once `takewhile` sees the 6, the condition becomes 
 `False` and it will ignore the rest of the items in the iterable.
 
-### `tee(iterable, n=2)`
+### `itertools.tee(iterable, n=2)`
 
 The `tee` tool will create `n` iterators from a single iterable. What this means is that you can create multiple 
 iterators from one iterable. Let’s look at some explanatory code to how it works:
@@ -432,7 +436,7 @@ Here we create a 5-letter string and pass it to `tee`. Because `tee` defaults to
 acquire the two iterators that are returned from `tee`. Finally we loop over each of the iterators and print out 
 their contents. As you can see, their content are the same.
 
-### `zip_longest(*iterables, fillvalue=None)`
+### `itertools.zip_longest(*iterables, fillvalue=None)`
 
 The `zip_longest` iterator can be used to zip two iterables together. If the iterables don’t happen to be the same 
 length, then you can also pass in a `fillvalue`. Let’s look at a silly example based on the documentation 
