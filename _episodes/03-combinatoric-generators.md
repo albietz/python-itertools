@@ -1,7 +1,7 @@
 ---
 title: "Combinatoric Generators"
-teaching: 5
-exercises: 0
+teaching: 25
+exercises: 10
 questions:
 - How can we easily create combinations and permutations of data?
 objectives:

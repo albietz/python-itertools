@@ -1,7 +1,7 @@
 ---
 title: "Iterators that Terminate"
-teaching: 5
-exercises: 0
+teaching: 45
+exercises: 10
 questions:
 - What finite iterators does the `itertools` package provide?
 objectives:

@@ -1,6 +1,6 @@
 ---
 title: "Infinite Iterators"
-teaching: 5
+teaching: 20
 exercises: 0
 questions:
 - What infinite iterators does the `itertools` package provide?
