@@ -12,7 +12,7 @@ them, you need to understand that you will need to break out of these iterators 
 These can be useful for generating numbers or cycling over iterables of unknown length, for example. Let’s get started 
 learning about these interesting iterables!
 
-#### `itertools.count(start=0, step=1)`
+### `itertools.count(start=0, step=1)`
 
 The `count` iterator will return evenly spaced values starting with the number you pass in as its start parameter. 
 `count` also accepts a step parameter. Let’s take a look at a simple example:
@@ -69,7 +69,7 @@ Here we import `islice` and we loop over count starting at 10 and ending after 5
 argument to `islice` is when to stop iterating. But it doesn’t mean “stop when I reach the number 5”. Instead, it means 
 “stop when we’ve reached five iterations”.
 
-#### `itertools.cycle(iterable)`
+### `itertools.cycle(iterable)`
 
 The `cycle` iterator from `itertools` allows you to create an iterator that will cycle through a series of values infinitely. 
 Let’s pass it a 3 letter string and see what happens:
@@ -125,7 +125,7 @@ then we pass that variable to the `next` function. Every time we call next, it r
 Since this iterator is infinite, we can call `next` all day long and never run out of items. It is wise to ensure that
 the loop terminates at some point.
 
-#### `itertools.repeat(object[, times])`
+### `itertools.repeat(object[, times])`
 
 The `repeat` iterator will return an object an object over and over again forever unless you set its `times` argument. It is 
 quite similar to `cycle` except that it doesn’t cycle over a set of values repeatedly. Let’s take a look at a simple example:
