@@ -12,7 +12,7 @@ them, you need to understand that you will need to break out of these iterators 
 These can be useful for generating numbers or cycling over iterables of unknown length, for example. Let’s get started 
 learning about these interesting iterables!
 
-### `count(start=0, step=1)`
+#### `count(start=0, step=1)`
 
 The `count` iterator will return evenly spaced values starting with the number you pass in as its start parameter. 
 `count` also accepts a step parameter. Let’s take a look at a simple example:
@@ -69,7 +69,7 @@ Here we import `islice` and we loop over count starting at 10 and ending after 5
 argument to `islice` is when to stop iterating. But it doesn’t mean “stop when I reach the number 5”. Instead, it means 
 “stop when we’ve reached five iterations”.
 
-### `cycle(iterable)`
+#### `cycle(iterable)`
 
 The `cycle` iterator from `itertools` allows you to create an iterator that will cycle through a series of values infinitely. 
 Let’s pass it a 3 letter string and see what happens:
@@ -105,137 +105,48 @@ You can also use Python’s next built-in to iterate over the iterators you crea
 ~~~
 polys = ['triangle', 'square', 'pentagon', 'rectangle']
 iterator = cycle(polys)
-next(iterator)
+for val in range(6):
+	print(next(iterator))
 ~~~
 {: .python}
 
 ~~~
 'triangle'
-~~~
-{: .output}
-
-~~~
-next(iterator)
-~~~
-{: .python}
-
-~~~
 'square'
-~~~
-{: .output}
-
-~~~
-next(iterator)
-~~~
-{: .python}
-
-~~~
 'pentagon'
-~~~
-{: .output}
-
-~~~
-next(iterator)
-~~~
-{: .python}
-
-~~~
 'rectangle'
-~~~
-{: .output}
-
-~~~
-next(iterator)
-~~~
-{: .python}
-
-~~~
 'triangle'
-~~~
-{: .output}
-
-~~~
-next(iterator)
-~~~
-{: .python}
-
-~~~
 'square'
 ~~~
 {: .output}
 
 In the code above, we create a simple list of polygons and pass them to cycle. We save our new iterator to a variable and 
 then we pass that variable to the `next` function. Every time we call next, it returns the next value in the iterator. 
-Since this iterator is infinite, we can call `next` all day long and never run out of items.
+Since this iterator is infinite, we can call `next` all day long and never run out of items. It is wise to ensure that
+the loop terminates at some point.
 
-### `repeat(object[, times])`
+#### `repeat(object[, times])`
 
 The `repeat` iterator will return an object an object over and over again forever unless you set its `times` argument. It is 
 quite similar to `cycle` except that it doesn’t cycle over a set of values repeatedly. Let’s take a look at a simple example:
 
 ~~~
 from itertools import repeat
-repeat(5, 5)
-repeat(5, 5)
 iterator = repeat(5, 5)
-next(iterator)
+for val in range(6):
+	print(next(iterator))
 ~~~
 {: .python}
 
 ~~~
 5
-~~~
-{: .output}
-
-~~~
-next(iterator)
-~~~
-{: .python}
-
-~~~
 5
-~~~
-{: .output}
-
-~~~
-next(iterator)
-~~~
-{: .python}
-
-~~~
 5
-~~~
-{: .output}
-
-~~~
-next(iterator)
-~~~
-{: .python}
-
-~~~
 5
-~~~
-{: .output}
-
-~~~
-next(iterator)
-~~~
-{: .python}
-
-~~~
 5
-~~~
-{: .output}
-
-~~~
-next(iterator)
-~~~
-{: .python}
-
-~~~
 Traceback (most recent call last):
-  Python Shell, prompt 21, line 1
-builtins.StopIteration:
+  File "<stdin>", line 2, in <module>
+StopIteration
 ~~~
 {: .output}
 
