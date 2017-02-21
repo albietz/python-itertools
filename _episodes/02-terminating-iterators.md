@@ -119,11 +119,10 @@ chain.from_iterable(cmd, numbers)
 
 ~~~
 Traceback (most recent call last):
-  Python Shell, prompt 66, line 1
-builtins.TypeError: from_iterable() takes exactly one argument (2 given)
+  File "<stdin>", line 1, in <module>
+TypeError: from_iterable() takes exactly one argument (2 given)
 ~~~
 {: .output}
-
 
 Here we import `chain` as we did previously. We try passing in our two lists but we end up getting a TypeError! 
 
@@ -153,7 +152,7 @@ iterable a list of Booleans (or ones and zeroes which amounts to the same thing)
 from itertools import compress
 letters = 'ABCDEFG'
 bools = [True, False, True, True, False]
-list(compress(letters, bools))
+print(list(compress(letters, bools)))
 ~~~
 {: .python}
 
@@ -162,7 +161,7 @@ list(compress(letters, bools))
 ~~~
 {: .output}
 
-In this example, we have a group of seven letters and a list of five Bools. Then we pass them into the `compress`
+In this example, we have a group of seven letters and a list of five Booleans which are passed into the `compress`
 function. The `compress` function will go through each respective iterable and check the first against the second. 
 If the second has a matching `True`, then it will be kept. If it’s a `False`, then that item will be dropped. Thus 
 if you study the example above, you will notice that we have a `True` in the first, third and fourth positions which 
@@ -178,7 +177,10 @@ Let’s look at an example from Python’s documentation:
 
 ~~~
 from itertools import dropwhile
-list(dropwhile(lambda x: x<5, [1,4,6,4,1]))
+def less_than_five(x):
+     return x < 5 
+
+print(list(dropwhile(less_than_five, [1, 4, 6, 4, 1])))
 ~~~
 {: .python}
 
@@ -187,20 +189,17 @@ list(dropwhile(lambda x: x<5, [1,4,6,4,1]))
 ~~~
 {: .output}
 
-Here we import `dropwhile` and then we pass it a simple lambda statement. This function will return `True` if 
+Here we import `dropwhile` and then we pass it a simple function. This function will return `True` if 
 `x` is less than 5. Other it will return `False`. The `dropwhile` function will loop over the list and pass each 
-element into the lambda. If the lambda returns `True`, then that value gets dropped. Once we reach the number 6, 
+element into `less_than_five`. If the lambda returns `True`, then that value gets dropped. Once we reach the number 6, 
 the lambda returns `False` and we retain the number 6 and all the values that follow it.
 
-It is useful to use a regular function over a lambda when learning something new. So let’s flip
-this on its head and create a function that returns `True` if the number is greater than 5.
+Rather than using a function this way, it would be easier to use a lambda function. So let’s flip
+this on its head and use a lambda function that returns `True` if the number is greater than 5.
 
 ~~~
 from itertools import dropwhile
-def greater_than_five(x):
-     return x > 5 
-      
-list(dropwhile(greater_than_five, [6, 7, 8, 9, 1, 2, 3, 10]))
+print(list(dropwhile(lambda x: x > 5, [6, 7, 8, 9, 1, 2, 3, 10])))
 ~~~
 {: .python}
 
@@ -209,31 +208,32 @@ list(dropwhile(greater_than_five, [6, 7, 8, 9, 1, 2, 3, 10]))
 ~~~
 {: .output}
 
-Here we create a simple function in Python’s interpreter. This function is our predicate or filter. 
+In this example, the lambda function is our predicate or filter. 
 If the values we pass to it are `True`, then they will get dropped. Once we hit a value that is less than 5, 
-then ALL the values after and including that value will be kept, which you can see in the example above.
+then ALL the values after and including that value will be kept.
 
 ### `itertools.filterfalse(predicate, iterable)`
 
-The `filterfalse` function from itertools is very similar to `dropwhile`. However instead of dropping 
+The `filterfalse` function is very similar to `dropwhile`. However instead of dropping 
 values that match `True`, `filterfalse` will only return those values that evaluated to `False`. 
 Let’s use our function from the previous section to illustrate:
 
 ~~~
 from itertools import filterfalse
-def greater_than_five(x):
-     return x > 5  
+def less_than_five(x):
+     return x < 5  
+     
+print(list(filterfalse(less_than_five, [6, 7, 8, 9, 1, 2, 3, 10])))
 ~~~
 {: .python}
 
 ~~~
-list(filterfalse(greater_than_five, [6, 7, 8, 9, 1, 2, 3, 10]))
-[1, 2, 3]
+[6, 7, 8, 9, 10]
 ~~~
 {: .output}
 
-Here we pass `filterfalse` our function and a list of integers. If the integer is less than 5, it is kept. 
-Otherwise it is thrown away. You will notice that our result is only 1, 2 and 3. Unlike `dropwhile`, 
+Here we pass `filterfalse` our function and a list of integers. If the integer is greater than 5, it is kept. 
+Otherwise it is thrown away. You will notice that our result is only 6, 7, 8, 9, and 10. Unlike `dropwhile`, 
 `filterfalse` will check each and every value against our predicate.
 
 ### `itertools.groupby(iterable, key=None)`
@@ -252,8 +252,7 @@ sorted_vehicles = sorted(vehicles)
  
 for key, group in groupby(sorted_vehicles, lambda make: make[0]):
     for make, model in group:
-        print('{model} is made by {make}'.format(model=model,
-                                                 make=make))
+        print('{model} is made by {make}'.format(model=model, make=make))
 	print ("**** END OF GROUP ***\n")
 ~~~
 {: .python}
@@ -278,7 +277,7 @@ Taurus is made by Ford
 ~~~
 {: .output}
 
-> ## Sorted input
+> ## Challenge
 > Try changing the code such that you pass in `vehicles` instead of `sorted_vehicles`. You will quickly 
 > learn why you should sort the data before running it through `groupby` if you do.
 {: .challenge}
@@ -298,7 +297,7 @@ Let’s look at the first version to see how it works:
 from itertools import islice
 iterator = islice('123456', 4)
 for val in '123456':
-    print(next(iterator))
+	print(next(iterator))
 ~~~
 {: .python}
 
@@ -309,7 +308,7 @@ for val in '123456':
 '4'
 Traceback (most recent call last):
   File "<stdin>", line 2, in <module>
-builtins.StopIteration:
+StopIteration:
 ~~~
 {: .output}
 
@@ -319,7 +318,7 @@ We can verify this by calling `next` on our iterator four times, which is what w
 to know that if there are only two arguments passed to `islice`, then the second argument is the `stop` argument.
 
 Let’s try giving it three arguments to demonstrate that you can pass it a `start` and a `stop` argument. The `count` tool 
-from `` can help us illustrate this concept:
+from `itertools` can help us illustrate this concept:
 
 ~~~
 from itertools import islice
