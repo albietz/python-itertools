@@ -107,11 +107,11 @@ print(cp)
 {: .output}
 
 Here we import `product` and then set up a list of tuples which we assign to the variable `arrays`. Next we call `product`
-with those arrays. You will notice that we call it using `arrays`. This will cause the list to be “exploded” or applied 
+with those arrays. You will notice that we call it using `*arrays`. This will cause the list to be “exploded” or applied 
 to the `product` function in sequence. It means that you are passing in 3 arguments instead of one. 
 
 > ## Challenge
-> Try calling `product` with the asterisk pre-pended to arrays and see what happens.
+> Try calling `product` without the asterisk pre-pended to arrays and see what happens.
 {: .challenge}
 
 ### `permutations`
