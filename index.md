@@ -40,7 +40,7 @@ other side-effects of large data sets, increasing performance.
 > ~~~
 > {: .python}
 > 
-> This program produces the following output:
+> Running this program produces the following output:
 >
 > ~~~
 > P
@@ -58,7 +58,7 @@ other side-effects of large data sets, increasing performance.
 > The first 'P' is produced by the call to `it.__next__()` which returns the first value of the iterator. The next values are produced
 > by the for loop. The second for loop does nothing because at this point the iterator has completed. Finally the program generates
 > a `StopIteration` exception because an attempt is made to access a completed iterator (the for loop handles this exception rather
-> than passing it to the program.
+> than passing it to the program.)
 {: .callout}
 
 > ## Prerequisites
