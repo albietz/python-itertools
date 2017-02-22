@@ -31,7 +31,7 @@ print(list(accumulate(range(10))))
 {: .output}
 
 Here we import `accumulate` and pass it a range of 10 numbers, 0 through 9. It adds each of them in turn, so the first is 0, 
-the second is 0 + 1, the third is 1 + 2, etc. Now let’s import the operator module and add it into the mix:
+the second is 0 + 1, the third is 1 + 2, etc. Now let’s import the `operator` module and add it into the mix:
 
 ~~~
 import operator
@@ -53,7 +53,7 @@ chaotic recurrence relation. You should definitely give those examples a look as
 
 ### `itertools.chain(*iterables)`
 
-The `chain` iterator will take a series of `iterables` and basically flatten them down into one long iterable. 
+The `chain` iterator will take a series of `iterables` and flattens them down into one long iterable. 
 For example, suppose we have a list with some items already in it and two other lists that we wanted to add to 
 the original list, but we only wanted to add the items in each list. Naively you might try something like this:
 
@@ -72,7 +72,7 @@ print(my_list)
 {: .output}
 
 Well that didn’t work quite the way we wanted it to. The `itertools` module provides a much more elegant way of 
-flattening these lists into one using chain:
+flattening these lists into one:
 
 ~~~
 from itertools import chain
@@ -101,8 +101,8 @@ print(my_list)
 ~~~
 {: .output}
 
-Both of these methods are certainly valid but using `chain` is a more elegant and easier to understand solution in this 
-particular case.
+Both of these methods are certainly valid, but using `chain` is a more efficient if the iterator is being used in a loop
+rather than simply converting to a list.
 
 ### `itertools.chain.from_iterable(iterable)`
 
@@ -145,7 +145,7 @@ list(chain.from_iterable([cmd, numbers]))
 
 ### `itertools.compress(data, selectors)`
 
-The `compress` sub-module is useful for filtering the first iterable with the second. This works by making the second 
+The `compress` iterator is useful for filtering an iterable using a second iterable. This works by making the second 
 iterable a list of Booleans (or ones and zeroes which amounts to the same thing). Here’s how it works:
 
 ~~~
@@ -161,11 +161,11 @@ print(list(compress(letters, bools)))
 ~~~
 {: .output}
 
-In this example, we have a group of seven letters and a list of five Booleans which are passed into the `compress`
-function. The `compress` function will go through each respective iterable and check the first against the second. 
-If the second has a matching `True`, then it will be kept. If it’s a `False`, then that item will be dropped. Thus 
-if you study the example above, you will notice that we have a `True` in the first, third and fourth positions which 
-correspond with A,C and D.
+In this example, we have a group of seven letters and a list of five Booleans which are passed to the `compress`
+iterable. `compress` will go through each iterable argument and check the first against the second. 
+If the second has a matching `True`, then it will be kept. If it’s a `False`, then that item will be dropped.  
+So, in the example above, you will notice that the `bools` list has `True` in the first, third and fourth positions which 
+correspond with A,C and D from the `letters` string.
 
 ### `itertools.dropwhile(predicate, iterable)`
 
@@ -180,19 +180,19 @@ from itertools import dropwhile
 def less_than_five(x):
      return x < 5 
 
-print(list(dropwhile(less_than_five, [6, 5, 1, 4, 1])))
+print(list(dropwhile(less_than_five, [1, 4, 5, 1, 6])))
 ~~~
 {: .python}
 
 ~~~
-[6, 5, 1, 4, 1]
+[5, 1, 6]
 ~~~
 {: .output}
 
 Here we import `dropwhile` and then we pass it a simple function. This function will return `True` if 
 `x` is less than 5, otherwise it will return `False`. The `dropwhile` function will loop over the list and pass each 
-element into `less_than_five`. If the function returns `True`, then that value gets dropped. Once we reach the number 1, 
-the function returns `False` and we retain the number 1 and all the values that follow it.
+element into `less_than_five`. If the function returns `True`, then that value gets dropped. Once we reach the number 5, 
+the function returns `False` and we retain the number 5 and all the values that follow it.
 
 Rather than using a function this way, it would be easier to use a lambda function. So let’s flip
 this on its head and use a lambda function that returns `True` if the number is greater than 5.
@@ -233,7 +233,7 @@ print(list(filterfalse(less_than_five, [6, 7, 8, 9, 1, 2, 3, 10])))
 {: .output}
 
 Here we pass `filterfalse` our function and a list of integers. If the integer is less than 5, it is kept. 
-Otherwise it is thrown away. You will notice that our result is only 6, 7, 8, 9, and 10. Unlike `dropwhile`, 
+Otherwise it is thrown away. You will notice that our result is 6, 7, 8, 9, and 10. Unlike `dropwhile`, 
 `filterfalse` will check each and every value against our predicate.
 
 ### `itertools.groupby(iterable, key=None)`
@@ -276,6 +276,11 @@ Taurus is made by Ford
 **** END OF GROUP ***
 ~~~
 {: .output}
+
+The `groupby` iterator groups values based on a key. The `key` argument is a function, or if none is specified, defaults
+to the identity function which returns the element unchanged. In this case, we provide a function that returns the first
+element of the tuple, which is what we want to use for the key. A new group is generated every time the value of the key 
+function changes (which is why it is necessary to sort the data.)
 
 > ## Challenge
 > Try changing the code such that you pass in `vehicles` instead of `sorted_vehicles`. You will quickly 
@@ -344,13 +349,40 @@ for i in islice(count(), 3, 15):
 ~~~
 {: .output}
 
-Here we just call `count` and tell it to islice to start at the number 3 and stop when we reach 15. It’s just like doing a 
+Here we just call `count` and tell it to start at the number 3 and stop when we reach 15. It’s just like doing a 
 slice except that you are doing it to an iterator and returning a new iterator!
 
 ### `itertools.starmap(function, iterable)`
 
-The `starmap` tool will create an iterator that can compute using the function and iterable provided. As the documentation 
+The `starmap` iterator computes using the function and iterable provided as arguments. As the documentation 
 mentions, “the difference between `map()` and `starmap()` parallels the distinction between `function(a,b)` and `function(*c)`.”
+In other words, the function provided as an argument to `starmap` can iteself take a variable number of arguments.
+
+> ## Defining functions with `*args`
+>
+> The special syntax `*args` in function definitions is used to pass a variable number of arguments to the function. It
+> can be combined with other types of arguments:
+>
+> ~~~
+> def var_args(first, *rest):
+>   print("first arg: ", first)
+>   for arg in rest:
+>     print("another: ", arg)
+>
+> var_args('a', 1, 3, 'last')
+> ~~~
+> {: .python}
+>
+> This produces the following output:
+>
+> ~~~
+> first arg:  a
+> another:  1
+> another:  3
+> another:  last
+> ~~~
+> {: .output}
+{: .callout}
 
 Let’s look at a simple example:
 
@@ -401,34 +433,32 @@ The reason is that 1 and 4 are both less than 5, but 6 is greater. So once `take
 
 ### `itertools.tee(iterable, n=2)`
 
-The `tee` tool will create `n` iterators from a single iterable. What this means is that you can create multiple 
+The `tee` iterator creates `n` iterators from a single iterable. What this means is that you can create multiple 
 iterators from one iterable. Let’s look at some explanatory code to how it works:
 
 ~~~
 from itertools import tee
 data = 'ABCDE'
 iter1, iter2 = tee(data)
+
+print('first...')
 for item in iter1:
      print(item)
-~~~
-{: .python}
 
-~~~
-A
-B
-C
-D
-E
-~~~
-{: .output}
-
-~~~
+print('second...')
 for item in iter2:
      print(item)
 ~~~
 {: .python}
 
 ~~~
+first...
+A
+B
+C
+D
+E
+second...
 A
 B
 C
@@ -444,8 +474,7 @@ their contents. As you can see, their content are the same.
 ### `itertools.zip_longest(*iterables, fillvalue=None)`
 
 The `zip_longest` iterator can be used to zip two iterables together. If the iterables don’t happen to be the same 
-length, then you can also pass in a `fillvalue`. Let’s look at a silly example based on the documentation 
-for this function:
+length, then you can also pass in a `fillvalue`. Let’s look at a silly example based on the documentation for this function:
 
 ~~~
 from itertools import zip_longest
