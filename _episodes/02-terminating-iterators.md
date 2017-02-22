@@ -384,7 +384,7 @@ In other words, the function provided as an argument to `starmap` can iteself ta
 > {: .output}
 {: .callout}
 
-Let’s look at a simple example:
+Now, let’s look at a simple example using `starmap`:
 
 ~~~
 from itertools import starmap
